@@ -1,0 +1,9 @@
+.login {
+    display:block;
+    background-color: chocolate;
+    text-align: center;
+    justify-content: center;
+    width:50%;
+    height:50%;
+    margin:125px;
+}
