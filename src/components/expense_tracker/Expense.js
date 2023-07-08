@@ -10,6 +10,7 @@ const Expense = () => {
         description:"",
         category:""
     })
+    const[ispremiumuser,setPremiumUser] =useState(false)
     const Handlers =(e)=>{
         const {name,value}=e.target
         {
@@ -24,11 +25,33 @@ const Expense = () => {
         axios.post("http://localhost:4000/expense/addexpense",expense,{headers:{"Authorization":token}})
         .then((res)=>{
             console.log(res)
+            
         })
     }
     const payment =()=>{
         console.log("razorpay here")
     }
+    // function parseJwt (token) {
+    //     var base64Url = token.split('.')[1];
+    //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    //     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+    //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    //     }).join(''));
+    
+    //     return JSON.parse(jsonPayload);
+    // }
+    // function premiumUser(){
+    //     const token=localStorage.getItem("token")
+    //     const decodeToken=parseJwt(token)
+    //     console.log(decodeToken)
+    //     const ispremiumuser=decodeToken.ispremiumuser
+    //     console.log("ispremiumuser",ispremiumuser)
+    //     if(ispremiumuser){
+    //         setPremiumUser(ispremiumuser)
+    //     }
+
+    // }
+    
   return (
     <>
     <div className='user-sign'>
@@ -61,9 +84,11 @@ const Expense = () => {
         </div>
         <button onClick={AddExpense}>Add Expense</button>
         </div>
-        <GetExpense/>
-        <button><Razorpay/></button>
-        <button><Premium/></button>
+        <GetExpense setPremiumUser={setPremiumUser}/>
+        {console.log(ispremiumuser)}
+        <button >{ispremiumuser ? "you are a premium user":<Razorpay/>}</button>
+        {/* <button><Razorpay/></button> */}
+        <button>{ispremiumuser ? <Premium/> :""}</button>
     
         </>
   )
